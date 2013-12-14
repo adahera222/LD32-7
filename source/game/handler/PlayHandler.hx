@@ -17,6 +17,7 @@ import flaxen.core.Flaxen;
 import flaxen.core.FlaxenHandler;
 import flaxen.core.Log;
 import flaxen.util.ArrayUtil;
+import flaxen.util.MathUtil;
 import flaxen.service.InputService;
 import openfl.Assets;
 
@@ -94,6 +95,8 @@ class PlayHandler extends FlaxenHandler
 			.add(new Layer(30))
 			.add(new Position(x,y))
 			.add(emitter);
+
+		f.newSound("sound/explode" + MathUtil.rnd(1, 3) + ".wav");
 	}
 
 	public function addSmoke(x:Int, y:Int)
