@@ -12,6 +12,7 @@ import flaxen.component.Rotation;
 import flaxen.component.Tile;
 import flaxen.component.ImageGrid;
 import flaxen.component.Tween;
+import flaxen.component.Emitter;
 import flaxen.core.Flaxen;
 import flaxen.core.FlaxenHandler;
 import flaxen.core.Log;
@@ -61,6 +62,57 @@ class PlayHandler extends FlaxenHandler
 		if(key == Key.SPACE)
 			newLevel();
 		InputService.clearLastKey();
+
+		if(InputService.clicked)
+		{
+			var x = InputService.mouseX;
+			var y = InputService.mouseY;
+			dropBomb(x, y);
+		}
+	}
+
+	public function dropBomb(x:Int, y:Int)
+	{
+		trace("Dropping bomb");
+		addSmoke(x,y);
+		addExplosion(x,y);
+	}
+
+	public function addExplosion(x:Int, y:Int)
+	{
+		var emitter = new Emitter("art/particle-smoke.png");
+		emitter.destroyEntity = true;
+		emitter.maxParticles = 500;
+		emitter.lifespan = 0.3;
+		emitter.distance = 120;
+		emitter.stopAfterSeconds = 0.3;
+		emitter.rotationRand = new Rotation(360);
+		emitter.colorStart = 0xDDDD00;
+		emitter.colorEnd = 0xFF2222;
+
+		f.newEntity("emitter")
+			.add(new Layer(30))
+			.add(new Position(x,y))
+			.add(emitter);
+	}
+
+	public function addSmoke(x:Int, y:Int)
+	{
+		var emitter = new Emitter("art/particle-smoke.png");
+		emitter.destroyEntity = true;
+		emitter.maxParticles = 200;
+		emitter.lifespan = 1.6;
+		emitter.lifespanRand = 0.3;
+		emitter.distance = 40;
+		emitter.rotation = new Rotation(315);
+		emitter.rotationRand = new Rotation(150);
+		emitter.stopAfterSeconds = 1.0;
+		emitter.emitRadiusRand = 60;
+
+		f.newEntity("emitter")
+			.add(new Layer(30))
+			.add(new Position(x,y))
+			.add(emitter);
 	}
 
 	public function changeBackground()
@@ -70,7 +122,6 @@ class PlayHandler extends FlaxenHandler
 		if(rot.angle >= 360)
 			rot.angle = 0;
 	}
-
 
 	public function newLevel()
 	{

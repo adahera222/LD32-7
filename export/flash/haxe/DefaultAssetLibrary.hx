@@ -58,8 +58,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("art/bomb.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/bunker.png", __ASSET__art_bunker_png);
 		type.set ("art/bunker.png", Reflect.field (AssetType, "image".toUpperCase ()));
-		className.set ("art/crates.png", __ASSET__art_crates_png);
-		type.set ("art/crates.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/HaxePunkConsole/console_debug.png", __ASSET__art_haxepunkconsole_console_debug_png);
 		type.set ("art/HaxePunkConsole/console_debug.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/HaxePunkConsole/console_logo.png", __ASSET__art_haxepunkconsole_console_logo_png);
@@ -80,6 +78,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("art/particle-smoke.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/robot.png", __ASSET__art_robot_png);
 		type.set ("art/robot.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("art/stockpile.png", __ASSET__art_stockpile_png);
+		type.set ("art/stockpile.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/tent.png", __ASSET__art_tent_png);
 		type.set ("art/tent.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/truck.png", __ASSET__art_truck_png);
@@ -116,8 +116,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("art/bomb.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/bunker.png", "art/bunker.png");
 		type.set ("art/bunker.png", Reflect.field (AssetType, "image".toUpperCase ()));
-		path.set ("art/crates.png", "art/crates.png");
-		type.set ("art/crates.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/HaxePunkConsole/console_debug.png", "art/HaxePunkConsole/console_debug.png");
 		type.set ("art/HaxePunkConsole/console_debug.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/HaxePunkConsole/console_logo.png", "art/HaxePunkConsole/console_logo.png");
@@ -138,6 +136,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("art/particle-smoke.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/robot.png", "art/robot.png");
 		type.set ("art/robot.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		path.set ("art/stockpile.png", "art/stockpile.png");
+		type.set ("art/stockpile.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/tent.png", "art/tent.png");
 		type.set ("art/tent.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/truck.png", "art/truck.png");
@@ -600,7 +600,6 @@ class __ASSET__font_04b_03___ttf extends flash.text.Font { }
 class __ASSET__art_background_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_bomb_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_bunker_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
-class __ASSET__art_crates_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_haxepunkconsole_console_debug_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_haxepunkconsole_console_logo_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_haxepunkconsole_console_output_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
@@ -611,6 +610,7 @@ class __ASSET__art_inscrutablegames_png extends flash.display.BitmapData { publi
 class __ASSET__art_particle_fire_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_particle_smoke_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_robot_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
+class __ASSET__art_stockpile_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_tent_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_truck_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__font_5 extends flash.text.Font { }
