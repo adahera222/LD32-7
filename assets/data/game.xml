@@ -1,0 +1,7 @@
+<game>
+<object name="tent" hp="10" points="10" explosive="25" robots="3"/>
+<object name="robot" hp="25" points="25" explosive="50"/>
+<object name="truck" hp="50" points="50" explosive="100" robots="2"/>
+<object name="stockpile" hp="10" points="100" explosive="200"/>
+<object name="bunker" hp="200" points="200" explosive="400" robots="12"/>
+</game>
