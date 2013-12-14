@@ -1,0 +1,14 @@
+-main ApplicationMain 
+-lib openfl
+-lib ash
+-lib HaxePunk
+-lib flaxen
+-cp source
+-D tools=1.2.0
+-D openfl=1.2
+-D web
+-swf-version 11.2
+-swf export/flash/bin/bhz.swf
+-swf-header 600:600:30:7B6758
+-cp export/flash/haxe
+#--remap nme:flash
