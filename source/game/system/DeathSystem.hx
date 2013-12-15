@@ -14,6 +14,8 @@ import game.component.ExplodesOnDeath;
 import game.component.Explosion;
 import game.component.Health;
 import game.component.Immobile;
+import game.component.Level;
+import game.component.AwardsPoints;
 
 class DeathNode extends Node<DeathNode>
 {
@@ -41,16 +43,23 @@ class DeathSystem extends FlaxenSystem
 						.add(new Explosion(eod.power));
 				}
 
+				// Decrement level object counter 				
+				var level = flaxen.demandComponent("level", Level);
+				level.count--;
+				// trace("Objects left:" + level.count);
+
+				if(node.entity.has(AwardsPoints))
+					level.score += node.entity.get(AwardsPoints).points;
+				trace("SCORE:" + level.score);
+
 				// Deregister entity from fixed grid				
 				if(node.entity.has(Immobile))
 				{
 					var type = node.entity.get(Immobile).type;
-					trace("Removing fixed entity:" + type);
 					var fixedGrid = flaxen.demandEntity("fixedGrid").get(Grid);
 					fixedGrid.setRect(node.position.x - node.image.width / 2, 
 						node.position.y - node.image.height / 2, 
 						node.image.width, node.image.height, false);
-					trace("Fixed Grid:\n" + fixedGrid.saveToString(" ", "\n", "•", "·"));
 				}
 
 				// Actually remove the entity

@@ -17,12 +17,15 @@ import flaxen.core.FlaxenHandler;
 import flaxen.core.Log;
 import flaxen.service.InputService;
 import flaxen.util.ArrayUtil;
+import flaxen.util.MathUtil;
 import game.component.ExplodesOnDeath;
 import game.component.Explosion;
+import game.component.AwardsPoints;
 import game.component.Guarding;
 import game.component.Health;
 import game.component.Immobile;
 import game.component.Traveler;
+import game.component.Level;
 import openfl.Assets;
 
 class PlayHandler extends FlaxenHandler
@@ -89,6 +92,10 @@ class PlayHandler extends FlaxenHandler
 		f.newComponentSet("tentHurt").add([Tile, 0]).remove(Animation);
 		f.newComponentSet("tentRubble").add([Tile, 0]).remove(Animation);
 
+		var level = new Level();
+		f.newSingleton("level").add(level);
+		level.value = 10; // HACK
+
 		newLevel();
 	}
 
@@ -107,10 +114,11 @@ class PlayHandler extends FlaxenHandler
 		{
 			var x = InputService.mouseX;
 			var y = InputService.mouseY;
-			f.newEntity("explosion")
+			var e = f.newEntity("explosion", true)
 				.add(new Position(x, y))
 				.add(new Explosion(400));
 		}
+
 	}
 
 	public function changeBackground()
@@ -123,11 +131,28 @@ class PlayHandler extends FlaxenHandler
 
 	public function newLevel()
 	{
-		var group = f.resetSingleton("level");
+		var group = f.resetSingleton("levelGroup");
 		changeBackground();	
 		fixedGrid.clearRect(0, 0, 600, 600);	
-		randomizeLevel(2000);
-		trace("Fixed Grid:\n" + fixedGrid.saveToString(" ", "\n", "•", "·"));
+
+		var level = f.demandComponent("level", Level);
+		level.reset();
+
+		// Create new level with a target amount of points
+		var desiredPoints = MathUtil.min(level.value * level.value * 25, 5000);
+		randomizeLevel(desiredPoints); // will add to level.points
+		// trace("Fixed Grid:\n" + fixedGrid.saveToString(" ", "\n", "•", "·"));
+
+		// Set player target based on total points actually used (may be lower than points)
+		level.target = Std.int(level.points * 0.80); // TODO Select difficulty
+		trace("Points:" + level.points + " Target:" + level.target);
+	}
+
+	public function nextLevel()
+	{
+		var level = f.demandComponent("level", Level);
+		level.value++;
+		newLevel();
 	}
 
 	public function randomizeLevel(totalPoints:Int)
@@ -205,7 +230,7 @@ class PlayHandler extends FlaxenHandler
 		var data = xml.elementsNamed(type).next();
 		var size:Int = Std.parseInt(data.get("size"));
 		var pos = new Position((x + 0.5) * cellSize, (y + 0.5) * cellSize);
-		var e = f.newChildEntity("level", "levelObj")
+		var e = f.newChildEntity("levelGroup", "levelObj")
 			.add(new Image(data.get("image")))
 			.add(pos)
 			.add(Offset.center())
@@ -238,9 +263,14 @@ class PlayHandler extends FlaxenHandler
 		if(data.exists("fixed")) // mark this object on the fixed grid, find upper left corner
 			fixedGrid.setRect(Std.int(pos.x - size / 2), Std.int(pos.y - size / 2), size, size, true);
 
-		if(data.exists("fixed")) // mark this object on the fixed grid
-			trace("Fixed x:" + Std.int(pos.x - size / 2) + " y:" + Std.int(pos.y - size / 2)
-				+ " width:" + size + " height:" + size + " UsePositions:" + fixedGrid.usePositions);
+		var points:Int = attr(data, "points", 0);
+		if(points > 0)
+			e.add(new AwardsPoints(points));
+		else throw("Zero points found for " + type + " data:" + data);
+
+		var level = f.demandComponent("level", Level);
+		level.count++;
+		level.points += points;
 	}
 
 	public function attr<T>(data:Xml, name:String, def:T = null): T
@@ -283,7 +313,7 @@ class PlayHandler extends FlaxenHandler
 			for(name in buyOrder)
 			{
 				var obj = xml.elementsNamed(name).next();
-				var cost:Int = Std.parseInt(obj.get("cost"));
+				var cost:Int = Std.parseInt(obj.get("points"));
 				if(cost + totalSpent < points)
 				{
 					objFound = true;

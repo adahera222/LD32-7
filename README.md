@@ -27,3 +27,16 @@ Theme: You Only Get One
 	 - Sound panning doesn't seem to work properly on native platforms, it either fully pans to a 
 	   speaker or evenly between speakers, but no in between. OpenFL/Lime/OpenAL issue?
 	 - Really would like shadows on objects.
+
+
+	 LIMITED TIME/WHAT'S IMPORTANT
+	 - Damage/Burning
+	 - Shrapnel
+	 - Sound effects vary by 
+	 - Shadows
+	 - Music
+	 - Intro
+	 - Levels/progression
+	 - Score/Target
+	 - End screen
+	 - Bomb drop delay + sfx + visible bomb
