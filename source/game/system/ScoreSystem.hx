@@ -52,7 +52,7 @@ class ScoreSystem extends FlaxenSystem
 			{
 				var tween = new Tween(scoreEnt.get(Scale), { x:1.1, y:1.1 }, 0.1, Easing.easeInOutQuad);
 				tween.loop = LoopType.Both;
-				tween.stopAfterLoops = 2;
+				tween.stopAfterLoops = 2; // ease out, then ease back, that's two reps (calling em loops)
 				tween.destroyComponent = true;
 				scoreEnt.add(tween);
 			}

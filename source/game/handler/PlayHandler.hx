@@ -11,6 +11,7 @@ import flaxen.component.Position;
 import flaxen.component.Rotation;
 import flaxen.component.Scale;
 import flaxen.component.Tile;
+import flaxen.component.Text;
 import flaxen.component.Animation;
 import flaxen.core.Flaxen;
 import flaxen.core.FlaxenHandler;
@@ -18,6 +19,7 @@ import flaxen.core.Log;
 import flaxen.service.InputService;
 import flaxen.util.ArrayUtil;
 import flaxen.util.MathUtil;
+import flaxen.util.StringUtil;
 import game.component.ExplodesOnDeath;
 import game.component.Explosion;
 import game.component.AwardsPoints;
@@ -146,6 +148,14 @@ class PlayHandler extends FlaxenHandler
 		// Set player target based on total points actually used (may be lower than points)
 		level.target = Std.int(level.points * 0.80); // TODO Select difficulty
 		trace("Points:" + level.points + " Target:" + level.target);
+
+		// Add target score to upper right
+		f.newChildSingleton("levelGroup", "targetText")
+			.add(new Image("art/yellowNumberFont.png"))
+			.add(Position.topRight().add(-5, 5))
+			.add(new Layer(20))
+			.add(new Text(StringUtil.formatCommas(level.target)))
+			.add(TextStyle.createBitmap(false, Right, Top, 0, -2, 0, "2", false, "1234567890,"));
 	}
 
 	public function nextLevel()
