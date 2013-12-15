@@ -1,7 +1,7 @@
 <game objects="bunker,stockpile,truck,tent,robot" buyorder="robot,tent,robot,truck,robot,stockpile,robot,tent,robot,truck,robot,tent,stockpile,robot,truck,robot,tent,bunker" robot="1" tent="2" truck="3" stockpile="4" bunker="5">
-<robot id="1" hp="25" points="25" cost="25" explosive="50" robots="0" image="art/robot.png" tile="1" size="20"/>
+<robot id="1" hp="25" points="25" cost="25" explosive="50" robots="0" patrols="true" image="art/robot.png" tile="1" size="20"/>
 <tent id="2" hp="10" points="10" cost="60" explosive="25" robots="2" image="art/tent.png" size="60"/>
-<truck id="3" hp="50" points="50" cost="75" explosive="100" robots="1" image="art/truck.png" tile="0" size="50"/>
+<truck id="3" hp="50" points="50" cost="75" explosive="100" robots="1" patrols="true" image="art/truck.png" tile="0" size="50"/>
 <stockpile id="4" hp="10" points="100" cost="100" explosive="200" robots="0" image="art/stockpile.png" size="80"/>
 <bunker id="5" hp="200" points="200" cost="400" explosive="400" robots="8" image="art/bunker.png" size="120"/>
 </game>

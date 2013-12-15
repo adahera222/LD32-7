@@ -19,6 +19,7 @@ import flaxen.service.InputService;
 import flaxen.util.ArrayUtil;
 import game.component.Explosion;
 import game.component.Health;
+import game.component.Guarding;
 import game.component.ExplodesOnDeath;
 import openfl.Assets;
 
@@ -187,6 +188,9 @@ class PlayHandler extends FlaxenHandler
 
 		e.add(new ExplodesOnDeath(Std.parseInt(data.get("explosive"))))
 			.add(new Health(Std.parseInt(data.get("hp"))));
+
+		if(data.exists("patrols"))
+			e.add(new Guarding(Math.random() * 6 - 3)); // start some out guarding for 1-3 sec, and others immediately patrol
 	}
 
 	public function spendPoints(points:Int): Map<String,Int>
