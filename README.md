@@ -7,7 +7,6 @@ Theme: You Only Get One
 
 
 	ISSUES
-	 - Explosions should occur at center of object. Center object positions.
 	 - Explosions should probably add the size of the object to the power.
 	 - Explosive power should diminish with distance.
 	 - Dying objects should should burn if they are slightly negative health.
@@ -17,3 +16,11 @@ Theme: You Only Get One
 	   of the blast radius. Shrapnel should cause minor to medium damage.
 	 - Add random factors to damage and possibly radius?
 	 - Leave rubble at destroyed fixed sites
+	 - Animate robot
+	 - Detect collisions?
+	 - Robot should get knocked down and spark when taking small-medium damage
+	 - Danger of explosion should hold for a moment as in chain reaction style games. Or otherwise
+	   compensate for this with lots of shrapnel.
+	 - Trucks seem to unscale themselves when switching between truckHealthy and truckTravelHealthy
+
+	 

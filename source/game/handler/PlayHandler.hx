@@ -11,15 +11,17 @@ import flaxen.component.Position;
 import flaxen.component.Rotation;
 import flaxen.component.Scale;
 import flaxen.component.Tile;
+import flaxen.component.Animation;
 import flaxen.core.Flaxen;
 import flaxen.core.FlaxenHandler;
 import flaxen.core.Log;
 import flaxen.service.InputService;
 import flaxen.util.ArrayUtil;
-import game.component.Explosion;
-import game.component.Health;
-import game.component.Guarding;
 import game.component.ExplodesOnDeath;
+import game.component.Explosion;
+import game.component.Guarding;
+import game.component.Health;
+import game.component.Traveler;
 import openfl.Assets;
 
 class PlayHandler extends FlaxenHandler
@@ -59,6 +61,32 @@ class PlayHandler extends FlaxenHandler
 		fixedGrid = new com.haxepunk.masks.Grid(600, 600, 20, 20, 10, 10); // 30x30 grid
 		f.newSingleton("fixedGrid").add(fixedGrid);
 
+		for(obj in xml.get("objects").split(","))
+
+		f.newComponentSet("robotTravelHealthy").add([Animation, "0-2", 15]).remove(Tile);
+		f.newComponentSet("robotTravelHurt").add([Animation, "0-2", 15]).remove(Tile);
+		f.newComponentSet("robotHealthy").add([Tile, 1]).remove(Animation);
+		f.newComponentSet("robotHurt").add([Tile, 1]).remove(Animation);
+		f.newComponentSet("robotRubble").add([Tile, 1]).remove(Animation);
+
+		f.newComponentSet("truckTravelHealthy").add([Tile, 0]).remove(Animation);
+		f.newComponentSet("truckTravelHurt").add([Tile, 0]).remove(Animation);
+		f.newComponentSet("truckHealthy").add([Tile, 0]).remove(Animation);
+		f.newComponentSet("truckHurt").add([Tile, 0]).remove(Animation);
+		f.newComponentSet("truckRubble").add([Tile, 0]).remove(Animation);
+
+		f.newComponentSet("bunkerHealthy").add([Tile, 0]).remove(Animation);
+		f.newComponentSet("bunkerHurt").add([Tile, 0]).remove(Animation);
+		f.newComponentSet("bunkerRubble").add([Tile, 0]).remove(Animation);
+
+		f.newComponentSet("stockpileHealthy").add([Tile, 0]).remove(Animation);
+		f.newComponentSet("stockpileHurt").add([Tile, 0]).remove(Animation);
+		f.newComponentSet("stockpileRubble").add([Tile, 0]).remove(Animation);
+
+		f.newComponentSet("tentHealthy").add([Tile, 0]).remove(Animation);
+		f.newComponentSet("tentHurt").add([Tile, 0]).remove(Animation);
+		f.newComponentSet("tentRubble").add([Tile, 0]).remove(Animation);
+
 		newLevel();
 	}
 
@@ -67,6 +95,10 @@ class PlayHandler extends FlaxenHandler
 		var key = InputService.lastKey();
 		if(key == Key.SPACE)
 			newLevel();
+		#if !flash
+		if(key == Key.TAB)
+			flaxen.util.LogUtil.dumpLog(f.ash, "/Users/elund/Development/Jams/LD28/dump.txt");
+		#end
 		InputService.clearLastKey();
 
 		if(InputService.clicked)
@@ -93,8 +125,7 @@ class PlayHandler extends FlaxenHandler
 		changeBackground();	
 		fixedGrid.clearRect(0, 0, 30, 30);	
 		randomizeLevel(2000);
-		// f.addDependent(group, e);
-		trace("Fixed Grid:\n" + fixedGrid.saveToString(" ", "\n", "•", "·"));
+		// trace("Fixed Grid:\n" + fixedGrid.saveToString(" ", "\n", "•", "·"));
 	}
 
 	public function randomizeLevel(totalPoints:Int)
@@ -179,25 +210,27 @@ class PlayHandler extends FlaxenHandler
 			.add(Origin.center())
 			.add(new Layer(70));
 
-		var r = Std.int(8 * Math.random()) * 45;
-		e.add(new Rotation(r));
+		if(type != BUNKER)
+		{
+			var r = (type == STOCKPILE ? Math.random() * 360 : Std.int(8 * Math.random()) * 45);
+			e.add(new Rotation(r));
+		}
 
 		if(type != ROBOT)
 			e.add(new Scale(0.7, 0.7));
 
 		if(cellSize != size)
-			// e.add(new Offset((cellSize - size) / 2, (cellSize - size) / 2));
 			e.add(Offset.center());
 
-		if(data.exists("tile"))
-			e.add(new Tile(Std.parseInt(data.get("tile"))))
-				.add(new ImageGrid(size, size));
+		e.add(new ImageGrid(size, size));
+		f.installComponents(e, type + "Healthy");
 
 		e.add(new ExplodesOnDeath(Std.parseInt(data.get("explosive"))))
 			.add(new Health(Std.parseInt(data.get("hp"))));
 
-		if(data.exists("patrols"))
-			e.add(new Guarding(Math.random() * 6 - 3)); // start some out guarding for 1-3 sec, and others immediately patrol
+		if(data.exists("patrolSpeed"))
+			e.add(new Guarding(Math.random() * 6 - 3)) // start some out guarding for 1-3 sec, and others immediately patrol
+				.add((new Traveler(type, attr(data, "patrolSpeed", 0))));
 
 		if(data.exists("fixed")) // mark this object on the fixed grid
 		{
@@ -208,6 +241,22 @@ class PlayHandler extends FlaxenHandler
 			// 	" rawPos:" + x + "," + y + " cellSize:" + cellSize);
 			fixedGrid.setRect(gx, gy, gs, gs, true);
 		}			
+	}
+
+	public function attr<T>(data:Xml, name:String, def:T = null): T
+	{
+		if(!data.exists(name))
+			return def;
+
+		var result:Dynamic = data.get(name);
+
+		if(Std.is(def, Int))
+			return cast Std.parseInt(result);
+			
+		if(Std.is(def, Bool))
+			return cast(result == "true" ? true : false);
+
+		return result;			
 	}
 
 	public function spendPoints(points:Int): Map<String,Int>
