@@ -52,12 +52,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("gfx/preloader/haxepunk.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("font/04B_03__.ttf", __ASSET__font_04b_03___ttf);
 		type.set ("font/04B_03__.ttf", Reflect.field (AssetType, "font".toUpperCase ()));
+		className.set ("art/background-debug.png", __ASSET__art_background_debug_png);
+		type.set ("art/background-debug.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/background.png", __ASSET__art_background_png);
 		type.set ("art/background.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/bomb.png", __ASSET__art_bomb_png);
 		type.set ("art/bomb.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/bunker.png", __ASSET__art_bunker_png);
 		type.set ("art/bunker.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("art/explosion.png", __ASSET__art_explosion_png);
+		type.set ("art/explosion.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/HaxePunkConsole/console_debug.png", __ASSET__art_haxepunkconsole_console_debug_png);
 		type.set ("art/HaxePunkConsole/console_debug.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/HaxePunkConsole/console_logo.png", __ASSET__art_haxepunkconsole_console_logo_png);
@@ -116,12 +120,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("gfx/preloader/haxepunk.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("font/04B_03__.ttf", __ASSET__font_04b_03___ttf);
 		type.set ("font/04B_03__.ttf", Reflect.field (AssetType, "font".toUpperCase ()));
+		path.set ("art/background-debug.png", "art/background-debug.png");
+		type.set ("art/background-debug.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/background.png", "art/background.png");
 		type.set ("art/background.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/bomb.png", "art/bomb.png");
 		type.set ("art/bomb.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/bunker.png", "art/bunker.png");
 		type.set ("art/bunker.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		path.set ("art/explosion.png", "art/explosion.png");
+		type.set ("art/explosion.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/HaxePunkConsole/console_debug.png", "art/HaxePunkConsole/console_debug.png");
 		type.set ("art/HaxePunkConsole/console_debug.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/HaxePunkConsole/console_logo.png", "art/HaxePunkConsole/console_logo.png");
@@ -609,9 +617,11 @@ class __ASSET__gfx_debug_console_play_png extends flash.display.BitmapData { pub
 class __ASSET__gfx_debug_console_step_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__gfx_preloader_haxepunk_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__font_04b_03___ttf extends flash.text.Font { }
+class __ASSET__art_background_debug_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_background_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_bomb_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_bunker_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
+class __ASSET__art_explosion_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_haxepunkconsole_console_debug_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_haxepunkconsole_console_logo_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_haxepunkconsole_console_output_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
@@ -643,6 +653,8 @@ class __ASSET__data_game_xml extends flash.utils.ByteArray { }
 
 
 class __ASSET__font_04b_03___ttf extends flash.text.Font { }
+
+
 
 
 
