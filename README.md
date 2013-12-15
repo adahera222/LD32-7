@@ -16,3 +16,4 @@ Theme: You Only Get One
 	 - Shrapnel should be visible detritus that has a small range but moves in a line beyond the extents
 	   of the blast radius. Shrapnel should cause minor to medium damage.
 	 - Add random factors to damage and possibly radius?
+	 - Leave rubble at destroyed fixed sites

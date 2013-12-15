@@ -11,7 +11,6 @@ import flaxen.component.Position;
 import flaxen.component.Rotation;
 import flaxen.component.Scale;
 import flaxen.component.Tile;
-import flaxen.component.Tween;
 import flaxen.core.Flaxen;
 import flaxen.core.FlaxenHandler;
 import flaxen.core.Log;
@@ -34,6 +33,7 @@ class PlayHandler extends FlaxenHandler
 
 	public var f:Flaxen;
 	public var xml:Xml;
+	public var fixedGrid:com.haxepunk.masks.Grid;
 
 	public function new(f:Flaxen)
 	{
@@ -49,12 +49,15 @@ class PlayHandler extends FlaxenHandler
 		xml = Xml.parse(str).firstElement();
 
 		var bomb = f.newSingleton("background")
-			.add(new Image("art/background.png"))
+			.add(new Image("art/background-debug.png"))
 			.add(Position.center())
 			.add(Offset.center())
 			.add(Origin.center())
 			.add(new Rotation(0))
 			.add(new Layer(100));
+
+		fixedGrid = new com.haxepunk.masks.Grid(600, 600, 20, 20); // 30x30 grid
+		f.newSingleton("fixedGrid").add(fixedGrid);
 
 		newLevel();
 	}
@@ -87,9 +90,11 @@ class PlayHandler extends FlaxenHandler
 	public function newLevel()
 	{
 		var group = f.resetSingleton("level");
-		changeBackground();		
+		changeBackground();	
+		fixedGrid.clearRect(0, 0, 30, 30);	
 		randomizeLevel(2000);
 		// f.addDependent(group, e);
+		trace("Fixed Grid:\n" + fixedGrid.saveToString());
 	}
 
 	public function randomizeLevel(totalPoints:Int)
@@ -174,6 +179,7 @@ class PlayHandler extends FlaxenHandler
 			.add(new Layer(70));
 
 		var r = Std.int(8 * Math.random()) * 45;
+		r = 0;//HACK
 		e.add(new Rotation(r));
 
 		if(type != ROBOT)
@@ -191,6 +197,14 @@ class PlayHandler extends FlaxenHandler
 
 		if(data.exists("patrols"))
 			e.add(new Guarding(Math.random() * 6 - 3)); // start some out guarding for 1-3 sec, and others immediately patrol
+
+		if(data.exists("fixed")) // mark this object on the fixed grid
+		{
+			var gx = x % 20;
+			var gy = Std.int(y / 20);
+			var gs = Std.int(gridSize / 20);
+			fixedGrid.setRect(gx, gy, gs, gs, true);
+		}			
 	}
 
 	public function spendPoints(points:Int): Map<String,Int>

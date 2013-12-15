@@ -1,14 +1,15 @@
 package game.component; 
 
-import flaxen.component.Position;
+import com.haxepunk.ai.PathNode;
 
 // Patrolling is making a path to a target
 class Patrolling
 {
-	public var target:Position;
+	public var path:Array<PathNode>;
+	public var index:Int = 0;
 
-	public function new(target:Position)
+	public function new(path:Array<PathNode> = null)
 	{
-		this.target = target;
+		this.path = path;
 	}
 }
