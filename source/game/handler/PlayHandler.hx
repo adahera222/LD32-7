@@ -3,22 +3,23 @@ package game.handler;
 import com.haxepunk.utils.Key;
 import flaxen.common.LoopType;
 import flaxen.component.Image;
+import flaxen.component.ImageGrid;
 import flaxen.component.Layer;
 import flaxen.component.Offset;
 import flaxen.component.Origin;
-import flaxen.component.Scale;
 import flaxen.component.Position;
 import flaxen.component.Rotation;
+import flaxen.component.Scale;
 import flaxen.component.Tile;
-import flaxen.component.ImageGrid;
 import flaxen.component.Tween;
-import flaxen.component.Emitter;
 import flaxen.core.Flaxen;
 import flaxen.core.FlaxenHandler;
 import flaxen.core.Log;
-import flaxen.util.ArrayUtil;
-import flaxen.util.MathUtil;
 import flaxen.service.InputService;
+import flaxen.util.ArrayUtil;
+import game.component.Explosion;
+import game.component.Health;
+import game.component.ExplodesOnDeath;
 import openfl.Assets;
 
 class PlayHandler extends FlaxenHandler
@@ -68,54 +69,10 @@ class PlayHandler extends FlaxenHandler
 		{
 			var x = InputService.mouseX;
 			var y = InputService.mouseY;
-			dropBomb(x, y);
+			f.newEntity("explosion")
+				.add(new Position(x, y))
+				.add(new Explosion(400));
 		}
-	}
-
-	public function dropBomb(x:Int, y:Int)
-	{
-		trace("Dropping bomb");
-		addSmoke(x,y);
-		addExplosion(x,y);
-	}
-
-	public function addExplosion(x:Int, y:Int)
-	{
-		var emitter = new Emitter("art/particle-smoke.png");
-		emitter.destroyEntity = true;
-		emitter.maxParticles = 500;
-		emitter.lifespan = 0.3;
-		emitter.distance = 120;
-		emitter.stopAfterSeconds = 0.3;
-		emitter.rotationRand = new Rotation(360);
-		emitter.colorStart = 0xDDDD00;
-		emitter.colorEnd = 0xFF2222;
-
-		f.newEntity("emitter")
-			.add(new Layer(30))
-			.add(new Position(x,y))
-			.add(emitter);
-
-		f.newSound("sound/explode" + MathUtil.rnd(1, 3) + ".wav");
-	}
-
-	public function addSmoke(x:Int, y:Int)
-	{
-		var emitter = new Emitter("art/particle-smoke.png");
-		emitter.destroyEntity = true;
-		emitter.maxParticles = 200;
-		emitter.lifespan = 1.6;
-		emitter.lifespanRand = 0.3;
-		emitter.distance = 40;
-		emitter.rotation = new Rotation(315);
-		emitter.rotationRand = new Rotation(150);
-		emitter.stopAfterSeconds = 1.0;
-		emitter.emitRadiusRand = 60;
-
-		f.newEntity("emitter")
-			.add(new Layer(30))
-			.add(new Position(x,y))
-			.add(emitter);
 	}
 
 	public function changeBackground()
@@ -227,6 +184,9 @@ class PlayHandler extends FlaxenHandler
 		if(data.exists("tile"))
 			e.add(new Tile(Std.parseInt(data.get("tile"))))
 				.add(new ImageGrid(size, size));
+
+		e.add(new ExplodesOnDeath(Std.parseInt(data.get("explosive"))))
+			.add(new Health(Std.parseInt(data.get("hp"))));
 	}
 
 	public function spendPoints(points:Int): Map<String,Int>

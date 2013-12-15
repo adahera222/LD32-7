@@ -84,6 +84,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("art/tent.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/truck.png", __ASSET__art_truck_png);
 		type.set ("art/truck.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("sound/explode1.wav", __ASSET__sound_explode1_wav);
+		type.set ("sound/explode1.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
+		className.set ("sound/explode2.wav", __ASSET__sound_explode2_wav);
+		type.set ("sound/explode2.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
+		className.set ("sound/explode3.wav", __ASSET__sound_explode3_wav);
+		type.set ("sound/explode3.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
 		className.set ("font/04B_03__.ttf", __ASSET__font_5);
 		type.set ("font/04B_03__.ttf", Reflect.field (AssetType, "font".toUpperCase ()));
 		className.set ("font/AccidentalPresidency.ttf", __ASSET__font_accidentalpresidency_ttf);
@@ -142,6 +148,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("art/tent.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/truck.png", "art/truck.png");
 		type.set ("art/truck.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		path.set ("sound/explode1.wav", "sound/explode1.wav");
+		type.set ("sound/explode1.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
+		path.set ("sound/explode2.wav", "sound/explode2.wav");
+		type.set ("sound/explode2.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
+		path.set ("sound/explode3.wav", "sound/explode3.wav");
+		type.set ("sound/explode3.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
 		className.set ("font/04B_03__.ttf", __ASSET__font_5);
 		type.set ("font/04B_03__.ttf", Reflect.field (AssetType, "font".toUpperCase ()));
 		className.set ("font/AccidentalPresidency.ttf", __ASSET__font_accidentalpresidency_ttf);
@@ -613,6 +625,9 @@ class __ASSET__art_robot_png extends flash.display.BitmapData { public function 
 class __ASSET__art_stockpile_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_tent_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_truck_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
+class __ASSET__sound_explode1_wav extends flash.media.Sound { }
+class __ASSET__sound_explode2_wav extends flash.media.Sound { }
+class __ASSET__sound_explode3_wav extends flash.media.Sound { }
 class __ASSET__font_5 extends flash.text.Font { }
 class __ASSET__font_accidentalpresidency_ttf extends flash.text.Font { }
 class __ASSET__data_game_xml extends flash.utils.ByteArray { }
@@ -628,6 +643,9 @@ class __ASSET__data_game_xml extends flash.utils.ByteArray { }
 
 
 class __ASSET__font_04b_03___ttf extends flash.text.Font { }
+
+
+
 
 
 

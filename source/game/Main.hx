@@ -2,7 +2,9 @@ package game;
 
 import flaxen.core.Flaxen;
 import flaxen.core.FlaxenOptions;
-import flaxen.system.MovementSystem;
+import game.system.ExplosionSystem;
+import game.system.DamageSystem;
+import game.system.DeathSystem;
 import game.handler.PlayHandler;
 
 class Main extends Flaxen
@@ -15,6 +17,6 @@ class Main extends Flaxen
 	override public function ready()
 	{
 		setHandler(new PlayHandler(this));
-		// addSystems([MovementSystem]);
+		addSystems([ExplosionSystem, DamageSystem, DeathSystem]);
 	}
 }
