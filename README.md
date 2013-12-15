@@ -22,5 +22,7 @@ Theme: You Only Get One
 	 - Danger of explosion should hold for a moment as in chain reaction style games. Or otherwise
 	   compensate for this with lots of shrapnel.
 	 - Robot walk anim is a little too uniform.
-
-	 
+	 - Less guarding, particulary from trucks
+	 - There's always a delay before playing a sound for the first time, what's the fix for that?
+	 - Sound panning doesn't seem to work properly on native platforms, it either fully pans to a 
+	   speaker or evenly between speakers, but no in between. OpenFL/Lime/OpenAL issue?

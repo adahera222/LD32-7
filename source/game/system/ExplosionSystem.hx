@@ -18,6 +18,7 @@ import game.component.Damage;
 import game.component.ExplodesOnDeath;
 import game.component.Explosion;
 import game.component.Health;
+import com.haxepunk.HXP;
 
 class ExplosionNode extends Node<ExplosionNode>
 {
@@ -70,10 +71,12 @@ class ExplosionSystem extends FlaxenSystem
 	// TODO Change explosion size based on explosion power
 	public function createExplosion(radius:Float, explosion:Explosion, position:Position)
 	{
-		addRadialExplosion(radius, explosion, position);
+		var volume = Math.min(explosion.power / 400, 1) * 0.75 + 0.25; // scale volume to power, with min volume
+ 		addRadialExplosion(radius, explosion, position);
 		addSmokeFX(radius, explosion, position);
 		addExplosionFX(radius, explosion, position);
-		flaxen.newSound("sound/explode" + MathUtil.rnd(1, 3) + ".wav");
+		flaxen.newSound("sound/explode" + MathUtil.rnd(1, 3) + ".wav", false, volume,
+			(position.x - HXP.halfWidth) / HXP.halfWidth); // Set panning relative to explosion y position
 	}
 
 	public function addRadialExplosion(radius:Float, explosion:Explosion, position:Position)
