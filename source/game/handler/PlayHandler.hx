@@ -56,7 +56,7 @@ class PlayHandler extends FlaxenHandler
 			.add(new Rotation(0))
 			.add(new Layer(100));
 
-		fixedGrid = new com.haxepunk.masks.Grid(600, 600, 20, 20); // 30x30 grid
+		fixedGrid = new com.haxepunk.masks.Grid(600, 600, 20, 20, 10, 10); // 30x30 grid
 		f.newSingleton("fixedGrid").add(fixedGrid);
 
 		newLevel();
@@ -94,7 +94,7 @@ class PlayHandler extends FlaxenHandler
 		fixedGrid.clearRect(0, 0, 30, 30);	
 		randomizeLevel(2000);
 		// f.addDependent(group, e);
-		trace("Fixed Grid:\n" + fixedGrid.saveToString());
+		trace("Fixed Grid:\n" + fixedGrid.saveToString(" ", "\n", "•", "·"));
 	}
 
 	public function randomizeLevel(totalPoints:Int)
@@ -167,26 +167,27 @@ class PlayHandler extends FlaxenHandler
 		}
 	}
 
-	public function createObject(type:String, x:Int, y:Int, gridSize:Int)
+	public function createObject(type:String, x:Int, y:Int, cellSize:Int)
 	{
 		var data = xml.elementsNamed(type).next();
 		var size = Std.parseInt(data.get("size"));
 
 		var e = f.newChildEntity("level", "levelObj")
 			.add(new Image(data.get("image")))
-			.add(new Position(x * gridSize, y * gridSize))
+			.add(new Position((x + 0.5) * cellSize, (y + 0.5) * cellSize))
+			.add(Offset.center())
 			.add(Origin.center())
 			.add(new Layer(70));
 
 		var r = Std.int(8 * Math.random()) * 45;
-		r = 0;//HACK
 		e.add(new Rotation(r));
 
 		if(type != ROBOT)
-			e.add(new Scale(0.8, 0.8));
+			e.add(new Scale(0.7, 0.7));
 
-		if(gridSize != size)
-			e.add(new Offset((gridSize - size) / 2, (gridSize - size) / 2));
+		if(cellSize != size)
+			// e.add(new Offset((cellSize - size) / 2, (cellSize - size) / 2));
+			e.add(Offset.center());
 
 		if(data.exists("tile"))
 			e.add(new Tile(Std.parseInt(data.get("tile"))))
@@ -200,9 +201,11 @@ class PlayHandler extends FlaxenHandler
 
 		if(data.exists("fixed")) // mark this object on the fixed grid
 		{
-			var gx = x % 20;
-			var gy = Std.int(y / 20);
-			var gs = Std.int(gridSize / 20);
+			var gs = Std.int(cellSize / 20);
+			var gx = x * gs;
+			var gy = y * gs;
+			// trace("Adding object to:" + gx + "," + gy + " gs:" + gs + "x" + gs + " type:" + type +
+			// 	" rawPos:" + x + "," + y + " cellSize:" + cellSize);
 			fixedGrid.setRect(gx, gy, gs, gs, true);
 		}			
 	}

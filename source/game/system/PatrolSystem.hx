@@ -37,7 +37,7 @@ class PatrolSystem extends FlaxenSystem
 	private function stopPatrol(node:PatrolNode)
 	{
 		node.entity.remove(Patrolling);
-		node.entity.add(new Guarding(Math.random() * 8));
+		node.entity.add(new Guarding(Math.random() * 4));
 	}
 
 	private function continuePatrol(node:PatrolNode)
