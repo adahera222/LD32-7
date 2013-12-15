@@ -50,8 +50,8 @@ class PlayHandler extends FlaxenHandler
 			Log.error("Cannot load data " + XML_PATH);
 		xml = Xml.parse(str).firstElement();
 
-		var bomb = f.newSingleton("background")
-			.add(new Image("art/background-debug.png"))
+		f.newSingleton("background")
+			.add(new Image("art/background.png"))
 			.add(Position.center())
 			.add(Offset.center())
 			.add(Origin.center())

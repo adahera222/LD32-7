@@ -10,12 +10,14 @@ import flaxen.core.FlaxenSystem;
 import flaxen.util.MathUtil;
 import game.component.Guarding;
 import game.component.Patrolling;
+import game.component.Traveler;
 
 class GuardNode extends Node<GuardNode>
 {
 	public var position:Position;
 	public var guarding:Guarding;
 	public var rotation:Rotation;
+	public var traveler:Traveler;
 }
 
 class GuardSystem extends FlaxenSystem
@@ -59,7 +61,16 @@ class GuardSystem extends FlaxenSystem
 
 	public function guard(node:GuardNode)
 	{
-		if(Math.random() < 0.2)
-			node.rotation.angle += 15;
+		if(node.guarding.newlyAssigned)
+		{
+			flaxen.installComponents(node.entity, node.traveler.type + "Healthy");
+			node.guarding.newlyAssigned = false;			
+		}
+
+		if(node.traveler.type == "robot")
+		{
+			if(Math.random() < 0.2)
+				node.rotation.angle += 15;
+		}
 	}
 }

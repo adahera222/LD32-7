@@ -47,7 +47,7 @@ class PatrolSystem extends FlaxenSystem
 
 	// TODO if first patrol movement or last, use speed up/down easing
 	private function continuePatrol(node:PatrolNode)
-	{
+	{		
 		// TODO handle damage check
 
 		// Determine next target to walk to 
@@ -62,7 +62,8 @@ class PatrolSystem extends FlaxenSystem
 		}
 
 		// Animate walk if available, or change to walk image
-		flaxen.installComponents(node.entity, node.traveler.type + "TravelHealthy");
+		if(node.patrol.index == 0)
+			flaxen.installComponents(node.entity, node.traveler.type + "TravelHealthy");
 
 		// Tween to next target
 		var tween = new Tween(node.position, { x:nextPos.x, y:nextPos.y}, dist / speed);
