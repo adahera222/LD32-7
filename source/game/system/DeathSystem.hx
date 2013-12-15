@@ -16,6 +16,7 @@ import game.component.Health;
 import game.component.Immobile;
 import game.component.Level;
 import game.component.AwardsPoints;
+import game.component.EarnedPoints;
 
 class DeathNode extends Node<DeathNode>
 {
@@ -48,9 +49,10 @@ class DeathSystem extends FlaxenSystem
 				level.count--;
 				// trace("Objects left:" + level.count);
 
+				// Put earned points into the ECS, and the score will update
 				if(node.entity.has(AwardsPoints))
-					level.score += node.entity.get(AwardsPoints).points;
-				trace("SCORE:" + level.score);
+					flaxen.newEntity("earnedPts")
+						.add(new EarnedPoints(node.entity.get(AwardsPoints).points));
 
 				// Deregister entity from fixed grid				
 				if(node.entity.has(Immobile))

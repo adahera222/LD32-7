@@ -15,6 +15,6 @@ class Main extends Flaxen
 	override public function ready()
 	{
 		setHandler(new PlayHandler(this));
-		addSystems([GuardSystem, PatrolSystem, ExplosionSystem, DamageSystem, DeathSystem]);
+		addSystems([GuardSystem, PatrolSystem, ExplosionSystem, DamageSystem, DeathSystem, ScoreSystem]);
 	}
 }
