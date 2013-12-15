@@ -21,6 +21,7 @@ import game.component.ExplodesOnDeath;
 import game.component.Explosion;
 import game.component.Guarding;
 import game.component.Health;
+import game.component.Immobile;
 import game.component.Traveler;
 import openfl.Assets;
 
@@ -58,7 +59,8 @@ class PlayHandler extends FlaxenHandler
 			.add(new Rotation(0))
 			.add(new Layer(100));
 
-		fixedGrid = new com.haxepunk.masks.Grid(600, 600, 20, 20, 10, 10); // 30x30 grid
+		fixedGrid = new com.haxepunk.masks.Grid(600, 600, 20, 20); // 30x30 grid
+		fixedGrid.usePositions = true;
 		f.newSingleton("fixedGrid").add(fixedGrid);
 
 		for(obj in xml.get("objects").split(","))
@@ -123,9 +125,9 @@ class PlayHandler extends FlaxenHandler
 	{
 		var group = f.resetSingleton("level");
 		changeBackground();	
-		fixedGrid.clearRect(0, 0, 30, 30);	
+		fixedGrid.clearRect(0, 0, 600, 600);	
 		randomizeLevel(2000);
-		// trace("Fixed Grid:\n" + fixedGrid.saveToString(" ", "\n", "•", "·"));
+		trace("Fixed Grid:\n" + fixedGrid.saveToString(" ", "\n", "•", "·"));
 	}
 
 	public function randomizeLevel(totalPoints:Int)
@@ -201,11 +203,11 @@ class PlayHandler extends FlaxenHandler
 	public function createObject(type:String, x:Int, y:Int, cellSize:Int)
 	{
 		var data = xml.elementsNamed(type).next();
-		var size = Std.parseInt(data.get("size"));
-
+		var size:Int = Std.parseInt(data.get("size"));
+		var pos = new Position((x + 0.5) * cellSize, (y + 0.5) * cellSize);
 		var e = f.newChildEntity("level", "levelObj")
 			.add(new Image(data.get("image")))
-			.add(new Position((x + 0.5) * cellSize, (y + 0.5) * cellSize))
+			.add(pos)
 			.add(Offset.center())
 			.add(Origin.center())
 			.add(new Layer(70));
@@ -231,16 +233,14 @@ class PlayHandler extends FlaxenHandler
 		if(data.exists("patrolSpeed"))
 			e.add(new Guarding(Math.random() * 6 - 3)) // start some out guarding for 1-3 sec, and others immediately patrol
 				.add((new Traveler(type, attr(data, "patrolSpeed", 0))));
+		else e.add(new Immobile(type));
+
+		if(data.exists("fixed")) // mark this object on the fixed grid, find upper left corner
+			fixedGrid.setRect(Std.int(pos.x - size / 2), Std.int(pos.y - size / 2), size, size, true);
 
 		if(data.exists("fixed")) // mark this object on the fixed grid
-		{
-			var gs = Std.int(cellSize / 20);
-			var gx = x * gs;
-			var gy = y * gs;
-			// trace("Adding object to:" + gx + "," + gy + " gs:" + gs + "x" + gs + " type:" + type +
-			// 	" rawPos:" + x + "," + y + " cellSize:" + cellSize);
-			fixedGrid.setRect(gx, gy, gs, gs, true);
-		}			
+			trace("Fixed x:" + Std.int(pos.x - size / 2) + " y:" + Std.int(pos.y - size / 2)
+				+ " width:" + size + " height:" + size + " UsePositions:" + fixedGrid.usePositions);
 	}
 
 	public function attr<T>(data:Xml, name:String, def:T = null): T
@@ -269,6 +269,9 @@ class PlayHandler extends FlaxenHandler
 		var map = new Map<String,Int>();
 		for(obj in xml.get("objects").split(","))
 			map.set(obj, 0);
+
+		// map.set(STOCKPILE, 1);
+		// return map;
 
 		var totalSpent = 0;
 		var buyOrder = xml.get("buyorder").split(",");

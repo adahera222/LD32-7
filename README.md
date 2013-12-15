@@ -26,3 +26,4 @@ Theme: You Only Get One
 	 - There's always a delay before playing a sound for the first time, what's the fix for that?
 	 - Sound panning doesn't seem to work properly on native platforms, it either fully pans to a 
 	   speaker or evenly between speakers, but no in between. OpenFL/Lime/OpenAL issue?
+	 - Really would like shadows on objects.
