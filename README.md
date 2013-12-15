@@ -14,13 +14,13 @@ Theme: You Only Get One
 	 - Range of explosion is hard to see. Use pre-rendered explosions and use particles to enhance effect.
 	 - Shrapnel should be visible detritus that has a small range but moves in a line beyond the extents
 	   of the blast radius. Shrapnel should cause minor to medium damage.
-	 - Add random factors to damage and possibly radius?
+	 - Add random factors to damage, radius?
 	 - Leave rubble at destroyed fixed sites
 	 - Animate robot
 	 - Detect collisions?
 	 - Robot should get knocked down and spark when taking small-medium damage
 	 - Danger of explosion should hold for a moment as in chain reaction style games. Or otherwise
 	   compensate for this with lots of shrapnel.
-	 - Trucks seem to unscale themselves when switching between truckHealthy and truckTravelHealthy
+	 - Robot walk anim is a little too uniform.
 
 	 
