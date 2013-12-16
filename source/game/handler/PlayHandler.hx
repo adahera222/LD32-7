@@ -13,6 +13,7 @@ import flaxen.component.Scale;
 import flaxen.component.Tile;
 import flaxen.component.Text;
 import flaxen.component.Alpha;
+import flaxen.component.Tween;
 import flaxen.component.Animation;
 import flaxen.component.Application;
 import flaxen.core.Flaxen;
@@ -142,15 +143,38 @@ class PlayHandler extends FlaxenHandler
 		if(!InputService.clicked)
 			return;
 
+		var level = f.demandComponent("level", Level);
 		var x = InputService.mouseX;
 		var y = InputService.mouseY;
-		var e = f.newEntity("explosion", true)
-			.add(new Position(x, y))
+		var pos = new Position(x,y);
+		var rot = Rotation.random();
+		var scale = Scale.full();
+		var bombTween = new Tween(rot, { angle:Rotation.random().angle }, 0.5);
+		var bomb = f.newSingleton("bomb")
+			.add(new Image("art/bomb.png"))
+			.add(pos)
+			.add(new Layer(15))
+			.add(scale)
+			.add(rot)
+			.add(Origin.center())
+			.add(Offset.center())
+			.add(bombTween);
+		f.newTween(scale, { x:0.1, y:0.1 }, 0.5);
+
+		var explosion = f.newEntity("explosion", false)
+			.add(pos)
 			.add(Busy.instance)
 			.add(new Explosion(400));
-		var level = f.demandComponent("level", Level);
-		level.dropped = true;
-		f.removeControl(CanBomb);
+
+		f.newActionQueue()
+			.waitForProperty(bombTween, "complete", true)
+			.removeEntity(f.ash, bomb)
+			.addEntity(f.ash, explosion)
+			.addCallback(function()
+			{ 
+				level.dropped = true;
+				f.removeControl(CanBomb);
+			});
 	}
 
 	public function changeBackground()

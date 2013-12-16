@@ -35,8 +35,4 @@ Theme: You Only Get One
 	 - Sound effects vary by 
 	 - Shadows
 	 - Music
-	 - Intro
-	 - Levels/progression
-	 - Score/Target
-	 - End screen
 	 - Bomb drop delay + sfx + visible bomb
