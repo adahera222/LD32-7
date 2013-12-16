@@ -7,6 +7,7 @@ import flaxen.util.MathUtil;
 import game.component.Damage;
 import game.component.Dying;
 import game.component.Health;
+import game.component.Busy;
 
 class DamageNode extends Node<DamageNode>
 {
@@ -28,7 +29,10 @@ class DamageSystem extends FlaxenSystem
 			node.entity.remove(Damage);
 
 			if(node.health.current < 0)
+			{
 				node.entity.add(new Dying(MathUtil.rnd(DEATH_TIMER_MIN, DEATH_TIMER_MAX)));
+				node.entity.add(Busy.instance);
+			}
 
 			else if(node.health.current <= node.health.max / 2)
 				showDamage(node);

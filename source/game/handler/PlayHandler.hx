@@ -12,6 +12,7 @@ import flaxen.component.Rotation;
 import flaxen.component.Scale;
 import flaxen.component.Tile;
 import flaxen.component.Text;
+import flaxen.component.Alpha;
 import flaxen.component.Animation;
 import flaxen.core.Flaxen;
 import flaxen.core.FlaxenHandler;
@@ -27,7 +28,9 @@ import game.component.Guarding;
 import game.component.Health;
 import game.component.Immobile;
 import game.component.Traveler;
+import game.component.Controls;
 import game.component.Level;
+import game.component.Busy;
 import openfl.Assets;
 
 class PlayHandler extends FlaxenHandler
@@ -96,7 +99,7 @@ class PlayHandler extends FlaxenHandler
 
 		var level = new Level();
 		f.newSingleton("level").add(level);
-		level.value = 10; // HACK
+		// level.value = 10; // HACK
 
 		newLevel();
 	}
@@ -104,23 +107,49 @@ class PlayHandler extends FlaxenHandler
 	override public function input(_)
 	{
 		var key = InputService.lastKey();
-		if(key == Key.SPACE)
+		if(key == Key.TILDE) // HACK to redo level
 			newLevel();
 		#if !flash
 		if(key == Key.TAB)
 			flaxen.util.LogUtil.dumpLog(f.ash, "/Users/elund/Development/Jams/LD28/dump.txt");
 		#end
+
+		if(f.hasControl(CanBomb))
+			checkBombDrop();
+
+		if(f.hasControl(LevelComplete))
+			checkNextLevel();
+
 		InputService.clearLastKey();
+	}
 
-		if(InputService.clicked)
-		{
-			var x = InputService.mouseX;
-			var y = InputService.mouseY;
-			var e = f.newEntity("explosion", true)
-				.add(new Position(x, y))
-				.add(new Explosion(400));
-		}
+	public function checkNextLevel()
+	{
+		if(!InputService.clicked)
+			return;
 
+		f.removeControl(LevelComplete);
+
+		var level = f.demandComponent("level", Level);
+		if(level.success)
+			nextLevel();
+		else newLevel();
+	}
+
+	public function checkBombDrop()
+	{
+		if(!InputService.clicked)
+			return;
+
+		var x = InputService.mouseX;
+		var y = InputService.mouseY;
+		var e = f.newEntity("explosion", true)
+			.add(new Position(x, y))
+			.add(Busy.instance)
+			.add(new Explosion(400));
+		var level = f.demandComponent("level", Level);
+		level.dropped = true;
+		f.removeControl(CanBomb);
 	}
 
 	public function changeBackground()
@@ -141,13 +170,12 @@ class PlayHandler extends FlaxenHandler
 		level.reset();
 
 		// Create new level with a target amount of points
-		var desiredPoints = MathUtil.min(level.value * level.value * 25, 5000);
+		var desiredPoints = MathUtil.min(level.value * level.value * 25 + 5, 5000);
 		randomizeLevel(desiredPoints); // will add to level.points
 		// trace("Fixed Grid:\n" + fixedGrid.saveToString(" ", "\n", "•", "·"));
 
 		// Set player target based on total points actually used (may be lower than points)
-		level.target = Std.int(level.points * 0.80); // TODO Select difficulty
-		trace("Points:" + level.points + " Target:" + level.target);
+		level.target = Std.int(level.points * 0.65); // TODO Select difficulty
 
 		// Add target score to upper right
 		f.newChildSingleton("levelGroup", "targetText")
@@ -156,6 +184,41 @@ class PlayHandler extends FlaxenHandler
 			.add(new Layer(20))
 			.add(new Text(StringUtil.formatCommas(level.target)))
 			.add(TextStyle.createBitmap(false, Right, Top, 0, -2, 0, "2", false, "1234567890,"));
+
+		levelIntro();
+	}
+
+	public function levelIntro()
+	{
+		var level = f.demandComponent("level", Level);
+		var style = TextStyle.createBitmap(false, Center, Center, 0, -10, 0, "M", false, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		var alpha = new Alpha(0);
+		var scale = new Scale(10, 10);
+		var t1 = f.newEntity()
+			.add(new Image("art/giantFont.png"))
+			.add(Position.center())
+			.add(new Layer(18))
+			.add(alpha)
+			.add(scale)
+			.add(style)
+			.add(new Text(level.value <= 1 ? "BOMB THE ROBOT" : "BOMB THE ROBOTS"));
+		f.newTween(alpha, { value:1.0 }, 1.0);
+		var tween = f.newTween(scale, { x:1.0, y:1.0 }, 1.0);
+
+		var t2 = f.newEntity()
+			.add(new Image("art/redNumberFont.png"))
+			.add(Position.bottom().add(0, -40))
+			.add(new Layer(18))
+			.add(alpha) // will fade
+			.add(TextStyle.createBitmap(false, Right, Top, 0, -2, 0, "2", false, "1234567890,"))
+			.add(new Text(Std.string(level.value)));
+
+		f.newActionQueue()
+			.waitForProperty(tween, "complete", true)
+			.delay(2.0)
+			.removeEntity(f.ash, t1)
+			.removeEntity(f.ash, t2)
+			.addComponent(f.resolveEntity(Flaxen.CONTROL), CanBomb.instance);
 	}
 
 	public function nextLevel()

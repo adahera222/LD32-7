@@ -17,6 +17,7 @@ import game.component.Immobile;
 import game.component.Level;
 import game.component.AwardsPoints;
 import game.component.EarnedPoints;
+import game.component.Busy;
 
 class DeathNode extends Node<DeathNode>
 {
@@ -41,6 +42,7 @@ class DeathSystem extends FlaxenSystem
 					var eod = node.entity.get(ExplodesOnDeath);
 					flaxen.newEntity("explosion")
 						.add(node.position)
+						.add(Busy.instance)
 						.add(new Explosion(eod.power));
 				}
 
@@ -52,6 +54,7 @@ class DeathSystem extends FlaxenSystem
 				// Put earned points into the ECS, and the score will update
 				if(node.entity.has(AwardsPoints))
 					flaxen.newEntity("earnedPts")
+						.add(Busy.instance)
 						.add(new EarnedPoints(node.entity.get(AwardsPoints).points));
 
 				// Deregister entity from fixed grid				
