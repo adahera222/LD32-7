@@ -16,7 +16,7 @@ class ApplicationMain {
 		
 		var call_real = true;
 		
-		//nme.Lib.setPackage("Inscrutable Games", "bhz", "com.example.myapp", "1.0.0");
+		//nme.Lib.setPackage("Inscrutable Games", "bomb", "com.example.myapp", "1.0.0");
 		
 		
 		var loaded:Int = flash.Lib.current.loaderInfo.bytesLoaded;

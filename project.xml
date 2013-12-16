@@ -20,8 +20,9 @@
     <source path="source" />
     <set name="BUILD_DIR" value="export" /> 
 
-    <app title="You Set Us Up One Bomb" file="bhz" main="game.Main" company="Inscrutable Games" swf-version="11.2"/>
+    <app title="You Set Us Up One Bomb" file="bomb" main="game.Main" company="Inscrutable Games" swf-version="11.2"/>
     <app preloader="inscrutablegames.Preloader" if="flash"/>
+    <haxeflag name="--no-traces" unless="debug" if="flash"/>
 
     <window resizable="true" background="0x7b6758" orientation="landscape"/>
     <window width="600" height="600 " unless="mobile" />    

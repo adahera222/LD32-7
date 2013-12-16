@@ -62,6 +62,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("art/bunker.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/explosion.png", __ASSET__art_explosion_png);
 		type.set ("art/explosion.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("art/giantFont.png", __ASSET__art_giantfont_png);
+		type.set ("art/giantFont.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/HaxePunkConsole/console_debug.png", __ASSET__art_haxepunkconsole_console_debug_png);
 		type.set ("art/HaxePunkConsole/console_debug.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/HaxePunkConsole/console_logo.png", __ASSET__art_haxepunkconsole_console_logo_png);
@@ -76,24 +78,36 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("art/HaxePunkConsole/console_step.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/inscrutablegames.png", __ASSET__art_inscrutablegames_png);
 		type.set ("art/inscrutablegames.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("art/instructions.png", __ASSET__art_instructions_png);
+		type.set ("art/instructions.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/particle-fire.png", __ASSET__art_particle_fire_png);
 		type.set ("art/particle-fire.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/particle-smoke.png", __ASSET__art_particle_smoke_png);
 		type.set ("art/particle-smoke.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("art/redNumberFont.png", __ASSET__art_rednumberfont_png);
+		type.set ("art/redNumberFont.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/robot.png", __ASSET__art_robot_png);
 		type.set ("art/robot.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/stockpile.png", __ASSET__art_stockpile_png);
 		type.set ("art/stockpile.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/tent.png", __ASSET__art_tent_png);
 		type.set ("art/tent.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("art/title.png", __ASSET__art_title_png);
+		type.set ("art/title.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("art/truck.png", __ASSET__art_truck_png);
 		type.set ("art/truck.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("art/yellowNumberFont.png", __ASSET__art_yellownumberfont_png);
+		type.set ("art/yellowNumberFont.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("sound/explode1.wav", __ASSET__sound_explode1_wav);
 		type.set ("sound/explode1.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
 		className.set ("sound/explode2.wav", __ASSET__sound_explode2_wav);
 		type.set ("sound/explode2.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
 		className.set ("sound/explode3.wav", __ASSET__sound_explode3_wav);
 		type.set ("sound/explode3.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
+		className.set ("sound/getum.wav", __ASSET__sound_getum_wav);
+		type.set ("sound/getum.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
+		className.set ("music/theme.mp3", __ASSET__music_theme_mp3);
+		type.set ("music/theme.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
 		className.set ("font/04B_03__.ttf", __ASSET__font_5);
 		type.set ("font/04B_03__.ttf", Reflect.field (AssetType, "font".toUpperCase ()));
 		className.set ("font/AccidentalPresidency.ttf", __ASSET__font_accidentalpresidency_ttf);
@@ -130,6 +144,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("art/bunker.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/explosion.png", "art/explosion.png");
 		type.set ("art/explosion.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		path.set ("art/giantFont.png", "art/giantFont.png");
+		type.set ("art/giantFont.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/HaxePunkConsole/console_debug.png", "art/HaxePunkConsole/console_debug.png");
 		type.set ("art/HaxePunkConsole/console_debug.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/HaxePunkConsole/console_logo.png", "art/HaxePunkConsole/console_logo.png");
@@ -144,24 +160,36 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("art/HaxePunkConsole/console_step.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/inscrutablegames.png", "art/inscrutablegames.png");
 		type.set ("art/inscrutablegames.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		path.set ("art/instructions.png", "art/instructions.png");
+		type.set ("art/instructions.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/particle-fire.png", "art/particle-fire.png");
 		type.set ("art/particle-fire.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/particle-smoke.png", "art/particle-smoke.png");
 		type.set ("art/particle-smoke.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		path.set ("art/redNumberFont.png", "art/redNumberFont.png");
+		type.set ("art/redNumberFont.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/robot.png", "art/robot.png");
 		type.set ("art/robot.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/stockpile.png", "art/stockpile.png");
 		type.set ("art/stockpile.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/tent.png", "art/tent.png");
 		type.set ("art/tent.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		path.set ("art/title.png", "art/title.png");
+		type.set ("art/title.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("art/truck.png", "art/truck.png");
 		type.set ("art/truck.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		path.set ("art/yellowNumberFont.png", "art/yellowNumberFont.png");
+		type.set ("art/yellowNumberFont.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		path.set ("sound/explode1.wav", "sound/explode1.wav");
 		type.set ("sound/explode1.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
 		path.set ("sound/explode2.wav", "sound/explode2.wav");
 		type.set ("sound/explode2.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
 		path.set ("sound/explode3.wav", "sound/explode3.wav");
 		type.set ("sound/explode3.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
+		path.set ("sound/getum.wav", "sound/getum.wav");
+		type.set ("sound/getum.wav", Reflect.field (AssetType, "sound".toUpperCase ()));
+		path.set ("music/theme.mp3", "music/theme.mp3");
+		type.set ("music/theme.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
 		className.set ("font/04B_03__.ttf", __ASSET__font_5);
 		type.set ("font/04B_03__.ttf", Reflect.field (AssetType, "font".toUpperCase ()));
 		className.set ("font/AccidentalPresidency.ttf", __ASSET__font_accidentalpresidency_ttf);
@@ -622,6 +650,7 @@ class __ASSET__art_background_png extends flash.display.BitmapData { public func
 class __ASSET__art_bomb_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_bunker_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_explosion_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
+class __ASSET__art_giantfont_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_haxepunkconsole_console_debug_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_haxepunkconsole_console_logo_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_haxepunkconsole_console_output_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
@@ -629,15 +658,21 @@ class __ASSET__art_haxepunkconsole_console_pause_png extends flash.display.Bitma
 class __ASSET__art_haxepunkconsole_console_play_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_haxepunkconsole_console_step_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_inscrutablegames_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
+class __ASSET__art_instructions_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_particle_fire_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_particle_smoke_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
+class __ASSET__art_rednumberfont_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_robot_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_stockpile_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_tent_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
+class __ASSET__art_title_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__art_truck_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
+class __ASSET__art_yellownumberfont_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class __ASSET__sound_explode1_wav extends flash.media.Sound { }
 class __ASSET__sound_explode2_wav extends flash.media.Sound { }
 class __ASSET__sound_explode3_wav extends flash.media.Sound { }
+class __ASSET__sound_getum_wav extends flash.media.Sound { }
+class __ASSET__music_theme_mp3 extends flash.media.Sound { }
 class __ASSET__font_5 extends flash.text.Font { }
 class __ASSET__font_accidentalpresidency_ttf extends flash.text.Font { }
 class __ASSET__data_game_xml extends flash.utils.ByteArray { }
@@ -653,6 +688,13 @@ class __ASSET__data_game_xml extends flash.utils.ByteArray { }
 
 
 class __ASSET__font_04b_03___ttf extends flash.text.Font { }
+
+
+
+
+
+
+
 
 
 

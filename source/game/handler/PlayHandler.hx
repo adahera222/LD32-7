@@ -143,6 +143,7 @@ class PlayHandler extends FlaxenHandler
 		if(!InputService.clicked)
 			return;
 
+		f.removeControl(CanBomb);
 		var level = f.demandComponent("level", Level);
 		var x = InputService.mouseX;
 		var y = InputService.mouseY;
@@ -173,7 +174,6 @@ class PlayHandler extends FlaxenHandler
 			.addCallback(function()
 			{ 
 				level.dropped = true;
-				f.removeControl(CanBomb);
 			});
 	}
 
@@ -228,7 +228,7 @@ class PlayHandler extends FlaxenHandler
 			.add(style)
 			.add(new Text(level.value <= 1 ? "BOMB THE ROBOT" : "BOMB THE ROBOTS"));
 		f.newTween(alpha, { value:1.0 }, 1.0);
-		var tween = f.newTween(scale, { x:1.0, y:1.0 }, 1.0);
+		var tween = f.newTween(scale, { x:0.8, y:0.8 }, 1.0);
 
 		var t2 = f.newEntity()
 			.add(new Image("art/redNumberFont.png"))
@@ -240,10 +240,14 @@ class PlayHandler extends FlaxenHandler
 
 		f.newActionQueue()
 			.waitForProperty(tween, "complete", true)
-			.delay(2.0)
+			.addCallback(function()
+			{
+				f.newSound("sound/getum.wav");
+			})
+			.addComponent(f.resolveEntity(Flaxen.CONTROL), CanBomb.instance)
+			.delay(1.5)
 			.removeEntity(f.ash, t1)
-			.removeEntity(f.ash, t2)
-			.addComponent(f.resolveEntity(Flaxen.CONTROL), CanBomb.instance);
+			.removeEntity(f.ash, t2);
 	}
 
 	public function nextLevel()

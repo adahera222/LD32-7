@@ -53,6 +53,7 @@ class IntroHandler extends FlaxenHandler
 			.add(Position.zero())
 			.add(new Layer(20));
 		f.newMarker("p1");
+		f.newSound("sound/theme.wav");
 	}
 
 	override public function input(_)
