@@ -14,6 +14,7 @@ import flaxen.component.Tile;
 import flaxen.component.Text;
 import flaxen.component.Alpha;
 import flaxen.component.Animation;
+import flaxen.component.Application;
 import flaxen.core.Flaxen;
 import flaxen.core.FlaxenHandler;
 import flaxen.core.Log;
